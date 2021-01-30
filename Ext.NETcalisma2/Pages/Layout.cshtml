@@ -1,0 +1,159 @@
+﻿@page
+@model Ext.NETcalisma2.Pages.LayoutModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        VBoxLayout Rows - Ext.NET Examples
+    </title>
+    <link href="/resources/css/examples.css" rel="stylesheet" />
+
+    <script>
+
+        var template1 = '<i class="x-md">{0}</i>';
+
+        var temp = function (value) {
+            return Ext.String.format(template1, (value > 0) ? "star" : "grid_on", value);
+        };
+        var OrderID = function (value) {
+            return Ext.String.format(template, (value > 10256) ? "blue" : '#d04a62', value);
+        };
+        var CustomerID = function (value) {
+            return Ext.String.format(template, (value > 0) ? "green" : "red", value);
+        };
+        var EmployeeID = function (value) {
+            return Ext.String.format(template, (value > 0) ? '#d04a62' : "blue", value + "%");
+        };
+    </script>
+
+</head>
+<body>
+    <ext-viewport layout="VBox">
+        <layout>
+            <ext-vboxLayout align="Stretch" />
+        </layout>
+        <items>
+            <ext-container flex="1">
+                <layout>
+                    <ext-hboxLayout align="Stretch" />
+                </layout>
+                <defaults>
+                    <ext-add key="margin" value="10" mode="Raw" />
+                </defaults>
+                <items>
+                    <ext-container flex="1" title="Panel 1">
+                        <layout>
+                            <ext-vboxLayout align="Stretch" />
+                        </layout>
+                        <items>
+                            <ext-container title="Categories" flex="2">
+
+                                <items>
+
+                                    <ext-container region="Center" scrollable="true">
+                                        <items>
+                                            <ext-gridPanel title="Categories"
+                                                           width="370"
+                                                           height="340"
+                                                           frame="true">
+
+                                                <store>
+                                                    <ext-store data="Model.GridData" class="gridpanel">
+                                                        <fields>
+                                                            <ext-stringDataField name="CategoryName" />
+                                                            <ext-stringDataField name="Description" />
+
+                                                        </fields>
+                                                    </ext-store>
+                                                </store>
+
+                                                <columns>
+                                                    <ext-column text="CategoryName" dataIndex="CategoryName" />
+                                                    <ext-column text="Description" dataIndex="Description"  editor="@(Html.X().TextField())"/>
+
+
+                                                </columns>
+                                            </ext-gridPanel>
+                                        </items>
+                                    </ext-container>
+                                </items>
+                            </ext-container>
+                            <ext-container title="Shippers" flex="2">
+                                <items>
+                                    <ext-gridPanel title="Shippers"
+                                                   id="GRID1"
+                                                   width="370"
+                                                   height="340"
+                                                   frame="true"
+                                                   data="Model.GridData">
+                                        <store>
+                                            <ext-store data="Model.GridData">
+                                                <Model>
+                                                    <ext-model runat="server" IDProperty="ID">
+                                                        <Fields>
+                                                            <ext-stringDataField name="ShipperName" />
+                                                            <ext-stringDataField name="Phone" />
+                                                        </Fields>
+                                                    </ext-model>
+                                                </Model>
+                                            </ext-store>
+                                        </store>
+
+                                        <columns>
+                                            <ext-column text="ShipperName" dataIndex="CategoryName" flex="1" />
+                                            <ext-column text="Phone" dataIndex="Description" editor="@(Html.X().TextField())" >
+                                            </ext-column>
+                                        </columns>
+
+                                        <Plugins>
+                                            <ext-cellEditingPlugin data="Model.GridData" clicksToEdit="1" />
+                                        </Plugins>
+                                    </ext-gridPanel>
+
+                                </items>
+                            </ext-container>
+                        </items>
+                    </ext-container>
+                    <ext-container frame="true" flex="2" title="Panel 2">
+
+                        <layout>
+                            <ext-vboxLayout align="Stretch" />
+                        </layout>
+                        <items>
+                            <ext-container title="Orders" flex="2">
+                                <items>
+                                    <ext-treePanel model="Model.CodeTree" />
+                                </items>
+
+                            </ext-container>
+
+                            <ext-panel title="Order Report" flex="2">
+
+
+
+                            </ext-panel>
+                        </items>
+
+
+
+                    </ext-container>
+                    <ext-panel frame="true" flex="1" title="Partners">
+                        <items>
+                            @{
+                                @*@(Html.X().TextField())*@
+                            }
+                        </items>
+                    </ext-panel>
+                </items>
+                <plugins>
+                    @* <ext-boxReorderer /> *@
+                </plugins>
+            </ext-container>
+        </items>
+    </ext-viewport>
+</body>
+</html>
